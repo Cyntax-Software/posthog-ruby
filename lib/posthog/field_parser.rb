@@ -86,15 +86,21 @@ class PostHog
 
         check_timestamp! timestamp
         check_presence! distinct_id, 'distinct_id'
+        
+        source = if fields[:properties] && fields[:properties][:source]
+                   fields[:properties][:source]
+                 else
+                   "posthog-ruby"
+                 end
 
         parsed = {
           timestamp: datetime_in_iso8601(timestamp),
-          library: fields[:source] || 'posthog-ruby',
+          library: source,
           library_version: PostHog::VERSION.to_s,
           messageId: message_id,
           distinct_id: distinct_id,
           properties: {
-            '$lib' => fields[:source] || 'posthog-ruby',
+            '$lib' => source,
             '$lib_version' => PostHog::VERSION.to_s
           }
         }
