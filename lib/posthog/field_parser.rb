@@ -89,12 +89,12 @@ class PostHog
 
         parsed = {
           timestamp: datetime_in_iso8601(timestamp),
-          library: 'posthog-ruby',
+          library: 'rn-app',
           library_version: PostHog::VERSION.to_s,
           messageId: message_id,
           distinct_id: distinct_id,
           properties: {
-            '$lib' => 'posthog-ruby',
+            '$lib' => 'rn-app',
             '$lib_version' => PostHog::VERSION.to_s
           }
         }
